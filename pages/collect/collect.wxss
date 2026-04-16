@@ -1,0 +1,53 @@
+.container {
+  padding: 20rpx;
+  padding-bottom: 100rpx;
+}
+
+.playlist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.playlist-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.playlist-actions {
+  display: flex;
+}
+
+.action-btn {
+  padding: 10rpx 20rpx;
+  margin-left: 16rpx;
+  background-color: #f0f0f0;
+  border-radius: 20rpx;
+  font-size: 14px;
+}
+
+.collect-list {
+  margin-top: 20rpx;
+}
+
+.remove-btn {
+  font-size: 32rpx;
+  margin-left: 20rpx;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999;
+}
+
+.empty-state text:first-child {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 20rpx;
+}
+
+.empty-state text:last-child {
+  font-size: 14px;
+}

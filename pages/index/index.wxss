@@ -1,0 +1,22 @@
+.container {
+  padding-bottom: 100rpx;
+}
+
+.category-container,
+.rhythm-container {
+  margin: 16rpx 0;
+}
+
+.category-scroll {
+  white-space: nowrap;
+  padding: 0 16rpx;
+}
+
+.music-list {
+  margin-top: 16rpx;
+}
+
+.collect-btn {
+  font-size: 32rpx;
+  margin-left: 20rpx;
+}

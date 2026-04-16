@@ -1,0 +1,62 @@
+<view class="container">
+  <!-- 分类标签 -->
+  <view class="category-container">
+    <scroll-view scroll-x="true" class="category-scroll">
+      <view 
+        wx:for="{{categories}}" 
+        wx:key="id"
+        class="category-tag {{selectedCategory === item.id ? 'active' : ''}}"
+        bindtap="selectCategory"
+        data-id="{{item.id}}"
+      >
+        {{item.name}}
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 节奏标签 -->
+  <view class="rhythm-container">
+    <scroll-view scroll-x="true" class="category-scroll">
+      <view 
+        wx:for="{{rhythms}}" 
+        wx:key="id"
+        class="category-tag {{selectedRhythm === item.id ? 'active' : ''}}"
+        bindtap="selectRhythm"
+        data-id="{{item.id}}"
+      >
+        {{item.name}}
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 音乐列表 -->
+  <view class="music-list">
+    <view 
+      wx:for="{{musicList}}" 
+      wx:key="id"
+      class="music-card"
+      bindtap="playMusic"
+      data-music="{{item}}"
+    >
+      <view class="play-btn">
+        {{item.isPlaying ? '⏸' : '▶'}}
+      </view>
+      <view class="music-info">
+        <view class="music-title">{{item.title}}</view>
+        <view class="music-desc">{{item.artist}} | {{item.duration}}</view>
+      </view>
+      <view 
+        class="collect-btn"
+        bindtap="toggleCollect"
+        data-id="{{item.id}}"
+      >
+        {{item.isCollected ? '❤️' : '🤍'}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 语音点歌按钮 -->
+  <view class="voice-btn" bindtap="startVoice">
+    🎤
+  </view>
+</view>

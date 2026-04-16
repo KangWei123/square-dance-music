@@ -1,0 +1,42 @@
+<view class="container">
+  <!-- 歌单管理 -->
+  <view class="playlist-header">
+    <text class="playlist-title">我的广场舞歌单</text>
+    <view class="playlist-actions">
+      <view class="action-btn" bindtap="renamePlaylist">重命名</view>
+      <view class="action-btn" bindtap="deletePlaylist">删除</view>
+    </view>
+  </view>
+
+  <!-- 收藏列表 -->
+  <view class="collect-list">
+    <view 
+      wx:for="{{collectList}}" 
+      wx:key="id"
+      class="music-card"
+      bindtap="playMusic"
+      data-music="{{item}}"
+    >
+      <view class="play-btn">
+        {{item.isPlaying ? '⏸' : '▶'}}
+      </view>
+      <view class="music-info">
+        <view class="music-title">{{item.title}}</view>
+        <view class="music-desc">{{item.artist}} | {{item.duration}}</view>
+      </view>
+      <view 
+        class="remove-btn"
+        bindtap="removeCollect"
+        data-id="{{item.id}}"
+      >
+        🗑️
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{collectList.length === 0}}" class="empty-state">
+    <text>暂无收藏音乐</text>
+    <text>快去首页收藏喜欢的曲目吧</text>
+  </view>
+</view>

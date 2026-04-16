@@ -1,0 +1,167 @@
+/* 全局样式 */
+page {
+  background-color: #f5f5f5;
+  font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+
+/* 大按钮样式 */
+.btn-large {
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  border-radius: 30rpx;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 20rpx 0;
+}
+
+.btn-primary {
+  background-color: #ff6b35;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #fff;
+  color: #ff6b35;
+  border: 2rpx solid #ff6b35;
+}
+
+/* 卡片样式 */
+.card {
+  background-color: white;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  margin: 16rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 列表项样式 */
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+/* 音乐卡片样式 */
+.music-card {
+  display: flex;
+  align-items: center;
+  padding: 16rpx;
+  background-color: white;
+  border-radius: 12rpx;
+  margin: 12rpx 16rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.music-info {
+  flex: 1;
+  margin-left: 16rpx;
+}
+
+.music-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8rpx;
+}
+
+.music-desc {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 播放按钮样式 */
+.play-btn {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background-color: #ff6b35;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 32rpx;
+}
+
+/* 控制按钮样式 */
+.control-btn {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background-color: #ff6b35;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 40rpx;
+  margin: 0 20rpx;
+}
+
+/* 分类标签样式 */
+.category-tag {
+  display: inline-block;
+  padding: 8rpx 16rpx;
+  background-color: #f0f0f0;
+  border-radius: 20rpx;
+  font-size: 14px;
+  margin-right: 12rpx;
+  margin-bottom: 12rpx;
+}
+
+.category-tag.active {
+  background-color: #ff6b35;
+  color: white;
+}
+
+/* 进度条样式 */
+.progress-bar {
+  width: 100%;
+  height: 8rpx;
+  background-color: #eee;
+  border-radius: 4rpx;
+  margin: 20rpx 0;
+}
+
+.progress {
+  height: 100%;
+  background-color: #ff6b35;
+  border-radius: 4rpx;
+}
+
+/* 语音点歌按钮 */
+.voice-btn {
+  position: fixed;
+  bottom: 100rpx;
+  right: 40rpx;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background-color: #ff6b35;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 48rpx;
+  box-shadow: 0 4rpx 16rpx rgba(255, 107, 53, 0.4);
+}
+
+/* 底部广告样式 */
+.ad-banner {
+  width: 100%;
+  height: 120rpx;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #666;
+  margin-top: 20rpx;
+}

@@ -1,0 +1,78 @@
+<view class="container">
+  <!-- 音乐信息 -->
+  <view class="music-info">
+    <view class="music-title">{{currentMusic.title}}</view>
+    <view class="music-artist">{{currentMusic.artist}}</view>
+  </view>
+
+  <!-- 进度条 -->
+  <view class="progress-container">
+    <text class="time">{{currentTime}}</text>
+    <view class="progress-bar">
+      <view class="progress" style="width: {{progress}}%"></view>
+    </view>
+    <text class="time">{{duration}}</text>
+  </view>
+
+  <!-- 控制按钮 -->
+  <view class="control-container">
+    <view class="control-btn" bindtap="playRandom">
+      🔀
+    </view>
+    <view class="control-btn" bindtap="playPrev">
+      ⏮
+    </view>
+    <view class="control-btn" bindtap="playPause">
+      {{isPlaying ? '⏸' : '▶'}}
+    </view>
+    <view class="control-btn" bindtap="playNext">
+      ⏭
+    </view>
+    <view class="control-btn" bindtap="playLoop">
+      🔁
+    </view>
+  </view>
+
+  <!-- 倍速调节 -->
+  <view class="speed-container">
+    <text>倍速：</text>
+    <view class="speed-options">
+      <view 
+        wx:for="{{speedOptions}}" 
+        wx:key="value"
+        class="speed-option {{currentSpeed === item.value ? 'active' : ''}}"
+        bindtap="changeSpeed"
+        data-speed="{{item.value}}"
+      >
+        {{item.label}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 音量调节 -->
+  <view class="volume-container">
+    <text>音量：</text>
+    <view class="volume-bar">
+      <view class="volume-progress" style="width: {{volume}}%"></view>
+      <view 
+        class="volume-handle"
+        style="left: {{volume}}%"
+        bindtouchstart="startVolumeChange"
+        bindtouchmove="changeVolume"
+      ></view>
+    </view>
+    <text>{{volume}}%</text>
+  </view>
+
+  <!-- 收藏按钮 -->
+  <view class="collect-container">
+    <view 
+      class="collect-btn"
+      bindtap="toggleCollect"
+    >
+      {{isCollected ? '❤️ 已收藏' : '🤍 收藏'}}
+    </view>
+  </view>
+
+
+</view>
