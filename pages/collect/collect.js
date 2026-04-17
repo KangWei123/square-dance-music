@@ -26,10 +26,32 @@ Page({
       item.isPlaying = false;
     });
 
+    // 显示加载提示
+    wx.showLoading({
+      title: '加载音乐中...',
+      mask: true
+    });
+
     // 播放当前音乐
     backgroundAudioManager.title = music.title;
     backgroundAudioManager.src = music.url;
-    backgroundAudioManager.play();
+    
+    // 添加错误监听
+    backgroundAudioManager.onError(function(err) {
+      console.error('播放错误:', err);
+      wx.hideLoading();
+      wx.showToast({
+        title: '播放失败，错误：' + err.errMsg,
+        icon: 'none'
+      });
+    });
+
+    // 添加可以播放监听
+    backgroundAudioManager.onCanplay(function() {
+      console.log('音乐可以播放');
+      wx.hideLoading();
+      backgroundAudioManager.play();
+    });
 
     // 更新状态
     music.isPlaying = true;

@@ -1,22 +1,9 @@
 Page({
   data: {
-    categories: [
-      { id: 'all', name: '全部' },
-      { id: 'square', name: '广场舞' },
-      { id: 'ghost', name: '鬼步舞' },
-      { id: 'ballroom', name: '交谊舞' }
-    ],
-    rhythms: [
-      { id: 'all', name: '全部' },
-      { id: 'slow3', name: '慢三' },
-      { id: 'slow4', name: '慢四' },
-      { id: 'fast3', name: '快三' },
-      { id: 'fast4', name: '快四' }
-    ],
-    selectedCategory: 'all',
-    selectedRhythm: 'all',
     musicList: [],
-    collectList: []
+    originalMusicList: [], // 原始音乐列表
+    collectList: [],
+    searchKeyword: '' // 搜索关键词
   },
 
   onLoad: function() {
@@ -24,49 +11,123 @@ Page({
   },
 
   initData: function() {
-    // 模拟音乐数据
-    const mockMusicList = [
-      {
-        id: '1',
-        title: '最炫民族风',
-        artist: '凤凰传奇',
-        duration: '3:45',
-        category: 'square',
-        rhythm: 'fast4',
-        url: 'https://636c-cloud1-9gon47lr177773ed-1422719685.tcb.qcloud.la/music/%E6%9C%80%E7%82%AB%E6%B0%91%E6%97%8F%E9%A3%8E.mp3?sign=34f38b6f24c1d7cae499f7337c0a9376&t=1776332041',
-        isPlaying: false,
-        isCollected: false
+    // 显示加载提示
+    wx.showLoading({
+      title: '加载音乐列表...',
+      mask: true
+    });
+
+    // 从接口获取音乐数据
+    wx.request({
+      url: 'http://localhost:3000/api/music',
+      method: 'GET',
+      success: res => {
+        console.log('获取音乐列表成功:', res.data);
+        
+        // 处理接口返回的数据
+        const musicList = res.data.map(item => ({
+          id: item.id,
+          title: item.title,
+          artist: item.artist,
+          duration: item.duration,
+          category: 'square', // 默认分类
+          rhythm: 'fast4', // 默认节奏
+          url: item.url,
+          isPlaying: false,
+          isCollected: false
+        }));
+
+        this.setData({
+          musicList: musicList,
+          originalMusicList: musicList // 保存原始音乐列表
+        });
+        
+        wx.hideLoading();
       },
-      {
-        id: '2',
-        title: '小苹果',
-        artist: '筷子兄弟',
-        duration: '3:33',
-        category: 'square',
-        rhythm: 'fast4',
-        url: 'https://636c-cloud1-9gon47lr177773ed-1422719685.tcb.qcloud.la/music/%E5%B0%8F%E8%8B%B9%E6%9E%9C.mp3?sign=f78fbcd853eb1811bd07224b4a355758&t=1776332021',
-        isPlaying: false,
-        isCollected: false
+      fail: err => {
+        console.error('获取音乐列表失败:', err);
+        wx.hideLoading();
+        wx.showToast({
+          title: '加载音乐列表失败',
+          icon: 'none'
+        });
+        
+        // 使用备用数据
+        const backupMusicList = [
+          {
+            id: '1',
+            title: '最炫民族风',
+            artist: '凤凰传奇',
+            duration: '3:45',
+            category: 'square',
+            rhythm: 'fast4',
+            url: 'https://636c-cloud1-9gon47lr177773ed-1422719685.tcb.qcloud.la/music/%E6%9C%80%E7%82%AB%E6%B0%91%E6%97%8F%E9%A3%8E.mp3?sign=34f38b6f24c1d7cae499f7337c0a9376&t=1776332041',
+            isPlaying: false,
+            isCollected: false
+          },
+          {
+            id: '2',
+            title: '小苹果',
+            artist: '筷子兄弟',
+            duration: '3:33',
+            category: 'square',
+            rhythm: 'fast4',
+            url: 'https://636c-cloud1-9gon47lr177773ed-1422719685.tcb.qcloud.la/music/%E5%B0%8F%E8%8B%B9%E6%9E%9C.mp3?sign=f78fbcd853eb1811bd07224b4a355758&t=1776332021',
+            isPlaying: false,
+            isCollected: false
+          }
+        ];
+        
+        this.setData({
+          musicList: backupMusicList,
+          originalMusicList: backupMusicList // 保存原始音乐列表
+        });
       }
-    ];
-
-    this.setData({
-      musicList: mockMusicList
     });
   },
 
-  selectCategory: function(e) {
+  // 搜索输入事件
+  onSearchInput: function(e) {
+    const keyword = e.detail.value;
     this.setData({
-      selectedCategory: e.currentTarget.dataset.id
+      searchKeyword: keyword
     });
-    // 这里可以添加过滤逻辑
+    
+    // 实时搜索
+    if (keyword.trim()) {
+      // 从原始音乐列表中过滤
+      const filteredList = this.data.originalMusicList.filter(item => 
+        item.title.includes(keyword) || item.artist.includes(keyword)
+      );
+      this.setData({
+        musicList: filteredList
+      });
+    } else {
+      // 搜索关键词为空，显示全部音乐
+      this.setData({
+        musicList: this.data.originalMusicList
+      });
+    }
   },
 
-  selectRhythm: function(e) {
-    this.setData({
-      selectedRhythm: e.currentTarget.dataset.id
-    });
-    // 这里可以添加过滤逻辑
+  // 搜索确认事件
+  onSearchConfirm: function() {
+    // 搜索确认事件，与输入事件逻辑相同
+    const keyword = this.data.searchKeyword;
+    if (keyword.trim()) {
+      // 从原始音乐列表中过滤
+      const filteredList = this.data.originalMusicList.filter(item => 
+        item.title.includes(keyword) || item.artist.includes(keyword)
+      );
+      this.setData({
+        musicList: filteredList
+      });
+    } else {
+      // 搜索关键词为空，显示全部音乐
+      this.setData({
+        musicList: this.data.originalMusicList
+      });
+    }
   },
 
   playMusic: function(e) {
@@ -158,38 +219,5 @@ Page({
     });
   },
 
-  startVoice: function() {
-    wx.showModal({
-      title: '语音点歌',
-      content: '请说出您想播放的歌曲名称，例如：播放广场舞最炫民族风',
-      success: res => {
-        if (res.confirm) {
-          wx.startRecord({
-            success: res => {
-              const tempFilePath = res.tempFilePath;
-              // 这里可以调用语音识别接口
-              wx.showToast({
-                title: '识别中...',
-                icon: 'loading'
-              });
-              
-              // 模拟语音识别结果
-              setTimeout(() => {
-                wx.showToast({
-                  title: '正在播放：最炫民族风',
-                  icon: 'success'
-                });
-              }, 1000);
-            },
-            fail: res => {
-              wx.showToast({
-                title: '录音失败',
-                icon: 'none'
-              });
-            }
-          });
-        }
-      }
-    });
-  }
+
 })

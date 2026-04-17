@@ -2,6 +2,33 @@
   padding-bottom: 100rpx;
 }
 
+/* 搜索框样式 */
+.search-container {
+  padding: 16rpx;
+  background-color: #f5f5f5;
+}
+
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 8rpx;
+  padding: 0 16rpx;
+}
+
+.search-input {
+  flex: 1;
+  height: 64rpx;
+  font-size: 28rpx;
+  outline: none;
+}
+
+.search-btn {
+  margin-left: 16rpx;
+  color: #1a73e8;
+  font-size: 28rpx;
+}
+
 .category-container,
 .rhythm-container {
   margin: 16rpx 0;
